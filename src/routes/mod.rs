@@ -1,4 +1,4 @@
-use crate::model::ServiceSchema;
+use crate::model::MatchingSchema;
 use async_graphql::http::{playground_source, GraphQLPlaygroundConfig};
 use async_graphql_axum::{GraphQLRequest, GraphQLResponse};
 use axum::{
@@ -8,6 +8,7 @@ use axum::{
     Json,
 };
 use serde::Serialize;
+
 
 #[derive(Serialize)]
 struct Health {
@@ -29,7 +30,10 @@ pub(crate) async fn graphql_playground() -> impl IntoResponse {
 }
 pub(crate) async fn graphql_handler(
     req: GraphQLRequest,
-    Extension(schema): Extension<ServiceSchema>
+    Extension(schema): Extension<MatchingSchema>
 ) -> GraphQLResponse {
-    schema.execute(req.into_inner()).await.into()
+    schema
+        .execute(req.into_inner())
+        .await
+        .into()
 }

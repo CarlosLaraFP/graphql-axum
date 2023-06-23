@@ -25,3 +25,7 @@ async fn main() {
         .await
         .unwrap();
 }
+
+// docker build -t graphql-axum:latest .
+// docker run -p 8000:8000 graphql-axum:latest
+// curl -X POST -H "Content-Type: application/json" --data '{ "query": "{ getMatch(workerId: 12345) }" }' http://localhost:8000
